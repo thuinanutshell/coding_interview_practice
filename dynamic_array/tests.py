@@ -27,6 +27,39 @@ class TestDynamicArray(unittest.TestCase):
         self.assertEqual(popped, 2)
         self.assertEqual(da.size, 1)
 
+    def test_contain(self):
+        da = DynamicArray()
+        da.append(1)
+        da.append(2)
+        boolean1 = da.contains(1)
+        boolean2 = da.contains(3)
+        self.assertEqual(boolean1, True)
+        self.assertEqual(boolean2, False)
+
+    def test_insert(self):
+        da = DynamicArray()
+        da.append(1)
+        da.append(2)
+        da.append(3)
+        da.insert(1, 4)
+        self.assertEqual(da.arr[: da.size], [1, 4, 2, 3])
+
+    def test_remove(self):
+        da = DynamicArray()
+        da.append(1)
+        da.append(2)
+        da.append(3)
+        removed = da.remove(3)
+        self.assertEqual(removed, 2)
+
+    def test_pop(self):
+        da = DynamicArray()
+        da.append(1)
+        da.append(2)
+        da.append(3)
+        popped = da.pop(0)
+        self.assertEqual(popped, 1)
+
     def test_out_of_bounds(self):
         da = DynamicArray()
         da.append(1)

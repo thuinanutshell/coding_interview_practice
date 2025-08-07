@@ -74,3 +74,59 @@ class DynamicArray:
         self.arr[self.size - 1] = None
         self.size -= 1
         return val
+
+    def contains(self, x):
+        """Method to check whether an item is in the array
+
+        1. Loop through each item in the array
+        2. If there is an item equal to x, return True
+        3. If after looping all items and no item equal to x found, return False
+        """
+        for i in range(self.size):
+            if self.arr[i] == x:
+                return True
+        return False
+
+    def insert(self, i, x):
+        """Method to insert item x at index i
+
+        1. Check if the index is equal to the size, then we just need to append
+        2. Check if the size is equal to the capacity. If yes, we need to increase the size before inserting
+        3. Loop backwards from the last index of the array and assign the right index with its left one (shift everything to the right)
+        4. Assign the value x at index i
+        """
+        if i == self.size:
+            self.append(x)
+            return
+
+        if self.size == self.capacity:
+            self.resize(2 * self.capacity)
+
+        for j in range(self.size - 1, i - 1, -1):
+            self.arr[j + 1] = self.arr[j]
+
+        self.arr[i] = x
+        self.size += 1
+
+    def remove(self, x):
+        """Method to remove the first instance of item x"""
+        for i in range(self.size):
+            if self.arr[i] == x:
+                self.pop(i)
+                return i
+        return -1
+
+    def pop(self, i):
+        """Method to remove the item at index i
+        (shift everything to the left after removing the item)
+        """
+        if i < 0 or i >= self.size:
+            raise IndexError("Index out of bounds")
+        x = self.arr[i]
+
+        for j in range(self.size):
+            self.arr[j] = self.arr[j + 1]
+
+        self.size -= 1
+
+        return x
