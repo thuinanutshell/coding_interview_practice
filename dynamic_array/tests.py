@@ -1,48 +1,43 @@
 from dynamic_array import DynamicArray
+import unittest
 
 
-def test_dynamic_array():
-    da = DynamicArray()
+class TestDynamicArray(unittest.TestCase):
+    def test_append_and_get(self):
+        da = DynamicArray()
+        da.append(1)
+        da.append(2)
+        da.append(3)
+        self.assertEqual(da.size, 3)
+        self.assertEqual(da.get(0), 1)
+        self.assertEqual(da.get(1), 2)
+        self.assertEqual(da.get(2), 3)
 
-    # Test append and size
-    da.append(10)
-    da.append(20)
-    da.append(30)
-    assert da.size == 3, f"Expected size 3, got {da.size}"
-    assert da.get(0) == 10
-    assert da.get(1) == 20
-    assert da.get(2) == 30
+    def test_set(self):
+        da = DynamicArray()
+        da.append(5)
+        da.set(0, 10)
+        self.assertEqual(da.get(0), 10)
 
-    # Test set
-    da.set(1, 25)
-    assert da.get(1) == 25
+    def test_pop_back(self):
+        da = DynamicArray()
+        da.append(1)
+        da.append(2)
+        popped = da.pop_back()
+        self.assertEqual(popped, 2)
+        self.assertEqual(da.size, 1)
 
-    # Test pop_back
-    val = da.pop_back()
-    assert val == 30
-    assert da.size == 2
-
-    # Test out-of-bounds access
-    try:
-        da.get(5)
-        assert False, "Expected IndexError"
-    except IndexError:
-        pass
-
-    try:
-        da.set(5, 100)
-        assert False, "Expected IndexError"
-    except IndexError:
-        pass
-
-    try:
-        empty_da = DynamicArray()
-        empty_da.pop_back()
-        assert False, "Expected IndexError on pop_back"
-    except IndexError:
-        pass
-
-    print("All tests passed!")
+    def test_out_of_bounds(self):
+        da = DynamicArray()
+        da.append(1)
+        with self.assertRaises(IndexError):
+            da.get(5)
+        with self.assertRaises(IndexError):
+            da.set(5, 10)
+        da.pop_back()
+        with self.assertRaises(IndexError):
+            da.pop_back()
 
 
-test_dynamic_array()
+if __name__ == "__main__":
+    unittest.main()
