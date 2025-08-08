@@ -1,5 +1,6 @@
 class DynamicArray:
-    """Implementation of dynamic array"""
+    """Implementation of dynamic array
+    """
 
     def __init__(self):
         """Initialize dynamic array's attributes
